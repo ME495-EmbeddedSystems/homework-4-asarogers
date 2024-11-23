@@ -48,7 +48,7 @@ def generate_launch_description():
         arguments=[
             '-name', 'nubot',
             '-topic', '/robot_description',
-            '-x', '15', '-y', '0.3'
+            '-x', '15', '-z', '0.3'
             ],
         # -x 15 -z 0.3
         output='screen'
