@@ -10,10 +10,11 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + '/launch', ['launch/manual_explore.launch.py', 'launch/nubot_test.launch.py']),
+        ('share/' + package_name + '/launch', ['launch/manual_explore.launch.py']),
         ('share/' + package_name + '/urdf', ['urdf/nubot.urdf.xacro']),
         ('share/' + package_name + '/config', ['config/nubot_urdf.rviz', 'config/ekf.yaml', 'config/nav2_params.yaml']),
-        ('share/' + package_name + '/worlds', ['worlds/nubot_simple.sdf'])
+        ('share/' + package_name + '/worlds', ['worlds/nubot_simple.sdf']),
+        # ('share/' + package_name, ['nubot_nav/follow_waypoints.py'])
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,6 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            # 'follow_waypoints_node = nubot_nav.follow_waypoints:main'
         ],
     },
 )
