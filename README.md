@@ -1,7 +1,11 @@
 # ME495 Embedded Systems Homework 4
 Author: Asa Rogers
 
-This package, `nubot_nav`, is designed to enable a simulated robot (nubot) to autonomously map and navigate an environment in the ROS 2 environment. The project integrates the `slam_toolbox` for SLAM, the `nav2` stack for navigation, and a custom exploration node to autonomously explore unknown spaces. This README provides instructions for setup, execution, and descriptions of the implemented functionalities.
+This package laucnhes rviz and gazebo, then navigates the map using waypoints
 
+## Demo Quickstart
+1. Use `colcon clean workspace -y && colcon build && source install/setup.bash && ros2 launch nubot_nav nubot_test.launch.py` to launch the application.
+2. Once loaded, use drop the waypoints to make the robot move
+3. An example of what this looks like is shown below:
 
-https://index.ros.org/p/slam_toolbox/github-SteveMacenski-slam_toolbox/#jazzy
+https://private-user-images.githubusercontent.com/83177842/387356712-6e59cfbb-8215-44ab-a7cc-0dca417152e4.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzE5NTgzMjgsIm5iZiI6MTczMTk1ODAyOCwicGF0aCI6Ii84MzE3Nzg0Mi8zODczNTY3MTItNmU1OWNmYmItODIxNS00NGFiLWE3Y2MtMGRjYTQxNzE1MmU0Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDExMTglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMTE4VDE5MjcwOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE4OGQ3ZmJjNTY3NzNjMTYyMzgxNmJjZDY3ZTU4NzhmY2Y0NGRkODgwNjQ1ZTkyYTUxODljNTk3OTQwMTFiNDgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.QHUqFafNBAZ7yzAd5zDD8HRfKoPAPtjcZ4BuF9Hajio
