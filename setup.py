@@ -12,7 +12,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', ['launch/manual_explore.launch.py', 'launch/nubot_test.launch.py']),
         ('share/' + package_name + '/urdf', ['urdf/nubot.urdf.xacro']),
-        ('share/' + package_name + '/config', ['config/nubot_urdf.rviz', 'config/ekf.yaml']),
+        ('share/' + package_name + '/config', ['config/nubot_urdf.rviz', 'config/ekf.yaml', 'config/nav2_params.yaml']),
         ('share/' + package_name + '/worlds', ['worlds/nubot_simple.sdf'])
     ],
     install_requires=['setuptools'],

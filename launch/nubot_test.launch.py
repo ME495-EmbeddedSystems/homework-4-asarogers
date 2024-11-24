@@ -13,6 +13,7 @@ def generate_launch_description():
     default_model_path = os.path.join(pkg_share, 'urdf/nubot.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'config/nubot_urdf.rviz')
     world_config = os.path.join(pkg_share, 'worlds/nubot_simple.sdf')
+    nav2_params_config = os.path.join(pkg_share, 'config/nav2_params.yaml')
 
     robot_desc = xacro.process_file(default_model_path).toxml()
     robot_description = {"robot_description": robot_desc}
@@ -83,25 +84,6 @@ def generate_launch_description():
         spawn_entity,
         robot_localization_node,
         rviz_node,
-        IncludeLaunchDescription(
-            PathJoinSubstitution(
-                [
-                    FindPackageShare('nav2_bringup'),
-                    'launch',
-                    'navigation_launch.py',
-                ]
-            ),
-        ),
-        IncludeLaunchDescription(
-            PathJoinSubstitution(
-                [
-                    FindPackageShare('slam_toolbox'),
-                    'launch',
-                    'online_async_launch.py',
-                ]
-            ),
-        ),
-
         Node(
             package="ros_gz_bridge",
             executable="parameter_bridge",
@@ -119,5 +101,27 @@ def generate_launch_description():
                 ("/model/nubot/tf", "/tf"),
                 ("/world/nubot_world/model/nubot/joint_state", "/joint_states")
             ]
-        )
+        ),
+                IncludeLaunchDescription(
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('nav2_bringup'),
+                    'launch',
+                    'navigation_launch.py',
+                ]),
+            launch_arguments={
+                'params_file': nav2_params_config,
+                'use_sim_time': 'true' 
+                }.items()
+        ),
+        IncludeLaunchDescription(
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('slam_toolbox'),
+                    'launch',
+                    'online_async_launch.py',
+                ]
+            ),
+        ),
+
     ])
