@@ -14,7 +14,6 @@ setup(
         ('share/' + package_name + '/urdf', ['urdf/nubot.urdf.xacro']),
         ('share/' + package_name + '/config', ['config/nubot_urdf.rviz', 'config/ekf.yaml', 'config/nav2_params.yaml']),
         ('share/' + package_name + '/worlds', ['worlds/nubot_simple.sdf']),
-        # ('share/' + package_name, ['nubot_nav/follow_waypoints.py'])
     ],
     install_requires=['setuptools'],
     zip_safe=True,
