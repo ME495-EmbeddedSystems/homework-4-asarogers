@@ -16,12 +16,12 @@ def generate_launch_description():
     nav2_params_config = os.path.join(pkg_share, 'config/nav2_params.yaml')
 
     robot_desc = xacro.process_file(default_model_path).toxml()
-    robot_description = {"robot_description": robot_desc}
+    robot_description = {'robot_description': robot_desc}
 
     # # Validate paths
-    # assert os.path.exists(default_model_path), f"URDF file not found: {default_model_path}"
-    # assert os.path.exists(default_rviz_config_path), f"RViz config file not found: {default_rviz_config_path}"
-    # assert os.path.exists(world_config), f"World file not found: {world_config}"
+    # assert os.path.exists(default_model_path), f'URDF file not found: {default_model_path}'
+    # assert os.path.exists(default_rviz_config_path), f'RViz config file not found: {default_rviz_config_path}'
+    # assert os.path.exists(world_config), f'World file not found: {world_config}'
 
     # Define nodes
     robot_state_publisher = Node(
@@ -85,24 +85,24 @@ def generate_launch_description():
         robot_localization_node,
         rviz_node,
         Node(
-            package="ros_gz_bridge",
-            executable="parameter_bridge",
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
             arguments=[
-                "/model/nubot/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
-                "/model/nubot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V",
-                "/model/nubot/cmd_vel@geometry_msgs/msg/Twist[gz.msgs.Twist",
-                "/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan",
-                "/world/nubot_world/model/nubot/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model",
-                "/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"
+                '/model/nubot/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+                '/model/nubot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
+                '/model/nubot/cmd_vel@geometry_msgs/msg/Twist[gz.msgs.Twist',
+                '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
+                '/world/nubot_world/model/nubot/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+                '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'
             ],
             remappings=[
-                ("/model/nubot/odometry", "/odom"),
-                ("/model/nubot/cmd_vel", "/cmd_vel"),
-                ("/model/nubot/tf", "/tf"),
-                ("/world/nubot_world/model/nubot/joint_state", "/joint_states")
+                ('/model/nubot/odometry', '/odom'),
+                ('/model/nubot/cmd_vel', '/cmd_vel'),
+                ('/model/nubot/tf', '/tf'),
+                ('/world/nubot_world/model/nubot/joint_state', '/joint_states')
             ]
         ),
-                IncludeLaunchDescription(
+        IncludeLaunchDescription(
             PathJoinSubstitution(
                 [
                     FindPackageShare('nav2_bringup'),
@@ -111,7 +111,7 @@ def generate_launch_description():
                 ]),
             launch_arguments={
                 'params_file': nav2_params_config,
-                'use_sim_time': 'true' 
+                'use_sim_time': 'true'
                 }.items()
         ),
         IncludeLaunchDescription(
