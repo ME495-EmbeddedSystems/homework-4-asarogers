@@ -1,10 +1,11 @@
 import launch
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution
 import launch_ros
 import os
 import xacro
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+from launch.actions import IncludeLaunchDescription
 
 def generate_launch_description():
     # Locate package files
@@ -50,7 +51,6 @@ def generate_launch_description():
             '-topic', '/robot_description',
             '-x', '15', '-z', '0.3'
             ],
-        # -x 15 -z 0.3
         output='screen'
     )
 
@@ -83,6 +83,25 @@ def generate_launch_description():
         spawn_entity,
         robot_localization_node,
         rviz_node,
+        IncludeLaunchDescription(
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('nav2_bringup'),
+                    'launch',
+                    'navigation_launch.py',
+                ]
+            ),
+        ),
+        IncludeLaunchDescription(
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('slam_toolbox'),
+                    'launch',
+                    'online_async_launch.py',
+                ]
+            ),
+        ),
+
         Node(
             package="ros_gz_bridge",
             executable="parameter_bridge",
