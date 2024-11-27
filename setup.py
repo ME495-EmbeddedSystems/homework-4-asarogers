@@ -14,7 +14,8 @@ setup(
         ('share/' + package_name + '/urdf', ['urdf/nubot.urdf.xacro']),
         ('share/' + package_name + '/config', ['config/nubot_urdf.rviz', 'config/ekf.yaml',
                                                'config/nav2_params.yaml']),
-        ('share/' + package_name + '/worlds', ['worlds/nubot_simple.sdf']),
+        ('share/' + package_name + '/worlds', ['worlds/nubot_simple.sdf', 'worlds/nubot_world.sdf']),
+        ('share/' + package_name, ['nubot_nav/explore.py']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -25,7 +26,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # 'follow_waypoints_node = nubot_nav.follow_waypoints:main'
+            'explore_node = nubot_nav.explore:main'
         ],
     },
 )
