@@ -39,7 +39,7 @@ def generate_launch_description():
     pkg_share = FindPackageShare(package='nubot_nav').find('nubot_nav')
     default_model_path = os.path.join(pkg_share, 'urdf/nubot.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'config/nubot_urdf.rviz')
-    world_config = os.path.join(pkg_share, 'worlds/nubot_world.sdf')
+    world_config = os.path.join(pkg_share, 'worlds/nubot_simple.sdf')
     nav2_params_config = os.path.join(pkg_share, 'config/nav2_params.yaml')
 
     robot_desc = xacro.process_file(default_model_path).toxml()

@@ -56,8 +56,8 @@ class WallFollowingRobot(Node):
         """
 
         rear_sector = laser_ranges[0:90]
-        left_sector = laser_ranges[400:530]
-        front = laser_ranges[250:270]
+        left_sector = laser_ranges[400:440]
+        front = laser_ranges[300:330]
         right_sector = laser_ranges[500:530]
 
         return {
@@ -79,22 +79,18 @@ class WallFollowingRobot(Node):
         twist = Twist()
 
         # move forward
-        linear = 0.5
+        linear = 1.0
 
-        if distances['front'] < 3.5:
+        if distances['front'] < 4.5:
             linear = 0.0  # Stop
             twist.angular.z = -1.5  # Rotate to avoid obstacle
 
-        if distances['front'] > 5.0 and distances['left_sector'] > 3.0: # and distances['left_sector'] > 2.
-            self.logger(f'Found wall @ {distances['left_sector']}')
-            twist.angular.z = 1.0
+        if distances['front'] > 4.5 and distances['left_sector'] < 2.0:
+            twist.angular.z = -1.0
             linear = 0.0
-        # if distances['left_sector'] > 3.0:
-        #     twist.angular.z = 0.25
 
-        # if distances['left_sector'] < 2.5:
-        #     twist.angular.z = -0.25
 
+        
         # Velocity limits
         twist.linear.x = max(linear, -0.3)
         # twist.angular.z = max(min(twist.angular.z, 0.5), -0.5)
