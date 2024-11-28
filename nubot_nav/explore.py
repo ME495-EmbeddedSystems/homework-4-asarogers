@@ -1,162 +1,127 @@
-"""Module designed to make the robot explore rooms."""
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSDurabilityPolicy, QoSProfile
 import numpy as np
-from std_srvs.srv import Empty
-from geometry_msgs.msg import PoseStamped
-from rclpy.action import ActionClient
+import math
 
+from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
-from nav2_msgs.action import NavigateToPose
-from nav_msgs.msg import OccupancyGrid
 
 
-class AutomaticExplore(Node):
-    """Ros2 Node designed to implement exploration algorithm."""
+class WallFollowingRobot(Node):
+    """ROS2 Node for left wall following behavior."""
 
     def __init__(self):
-        """Create AutomaticExplore Node."""
-        super().__init__('explore_node')
-        self.get_logger().info('Automatic Explore Node Started!')
-        self.logger = self.get_logger()
+        """Create WallFollowingRobot Node."""
+        super().__init__('wall_following_node')
+        self.get_logger().info('Wall Following Node Started!')
+        self.logger = self.get_logger().info
 
-        qos = QoSProfile(depth=1, durability=QoSDurabilityPolicy.VOLATILE)
+        # QoS Profile for laser scan subscription
+        qos = QoSProfile(depth=10, durability=QoSDurabilityPolicy.VOLATILE)
 
-        self.costmap_subscriber = self.create_subscription(
-            OccupancyGrid, '/global_costmap/costmap', self.update_costmap, qos)
+        # Subscribe to laser scan topic
+        self.laser_subscriber = self.create_subscription(
+            LaserScan, '/scan', self.laser_callback, qos)
 
-        self.create_service(Empty, 'start_navigation', self.start_navigation)
+        # Create publisher for cmd_vel to control robot movement
+        self.cmd_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
 
-        self.nav_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
-        self.nav_client.wait_for_server()
-        self.get_logger().info('Navigator is ready.')
+        # Wall following parameters
+        self.target_distance = 0.5  # Target distance from the wall (meters)
+        self.kp_distance = 0.5  # Proportional gain for distance error
+        self.kp_angular = 0.5  # Proportional gain for angular correction
 
-        self.costmap_data = None
-        self.map_info = None
+    # def get_sector_indices(self, start_deg, end_deg, total_points):
+    #     """
+    #     Convert degrees to indices for a laser scan array.
 
-    def get_unexplored_cells(self):
-        """Get unexplored Cells."""
-        unexplored_cell = np.argwhere(self.costmap_data == -1)
-        if unexplored_cell.size == 0:
-            self.logger.info('No more unexplored areas.')
-        return unexplored_cell
+    #     :param start_deg: Start angle in degrees.
+    #     :param end_deg: End angle in degrees.
+    #     :param total_points: Total points in the laser scan array.
+    #     :return: Start and end indices corresponding to the given angles.
+    #     """
+    #     start_idx = int((start_deg / 360.0) * total_points)
+    #     end_idx = int((end_deg / 360.0) * total_points)
+    #     return start_idx, end_idx
 
-    def move_to_target(self, target):
-        """Move robot to target position."""
-        target_pose = PoseStamped()
-        target_pose.header.frame_id = 'map'
-        target_pose.pose.position.x = target['x']
-        target_pose.pose.position.y = target['y']
-        target_pose.pose.position.z = 0.0
-        target_pose.pose.orientation.x = 0.0
-        target_pose.pose.orientation.y = 0.0
-        target_pose.pose.orientation.z = 0.0
-        target_pose.pose.orientation.w = 1.0
-        target_pose.header.stamp = self.get_clock().now().to_msg()
+    def get_sector_distances(self, laser_ranges):
+        """
+        Compute sector distances from laser scan ranges based on degree-defined sectors.
 
-        self.get_logger().info(f'Navigating to unexplored target at ({target_pose})')
+        Sectors:
+        - Left: 270° to 350°
+        - Front Left: 45° to 90°
+        - Front Right: 315° to 360°
+        """
 
-        goal_msg = NavigateToPose.Goal()
-        goal_msg.pose = target_pose
+        rear_sector = laser_ranges[0:90]
+        left_sector = laser_ranges[400:530]
+        front = laser_ranges[250:270]
+        right_sector = laser_ranges[500:530]
 
-        # Send goal to the action server
-        future = self.nav_client.send_goal_async(goal_msg)
-        self.get_logger().info("Waiting for goal to be accepted...")
-        rclpy.spin_until_future_complete(self, future)
+        return {
+            'rear_sector': min(rear_sector),
+            'left_sector': min(left_sector),
+            'front': min(front),
+            'right_sector': min(right_sector)
+        }
 
-        goal_handle = future.result()
-        if not goal_handle.accepted:
-            self.get_logger().warning('Goal was rejected by the action server.')
-            return False
+    def laser_callback(self, msg):
+        """Process laser scan data and compute wall following behavior."""
+        # Filter out inf and nan values
+        ranges = np.array(msg.ranges)
+        self.logger(str(ranges.size))
+        # Get sector distances
+        distances = self.get_sector_distances(ranges)
 
-        self.get_logger().info('Goal accepted. Waiting for result...')
+        # Compute control commands
+        twist = Twist()
 
-        # # Wait for the result
-        # result_future = goal_handle.get_result_async()
-        # rclpy.spin_until_future_complete(self, result_future)
+        # move forward
+        linear = 0.5
 
-        # result = result_future.result()
-        # if result.status == 4:  # SUCCEEDED
-        #     self.get_logger().info('Target goal reached')
-        #     return True
-        # else:
-        #     self.get_logger().warning(f'Goal failed with status: {result.status}')
-        #     return False
+        if distances['front'] < 3.5:
+            linear = 0.0  # Stop
+            twist.angular.z = -1.5  # Rotate to avoid obstacle
 
-    def least_expensive_unexplored(self, unexplored_cell):
-        """Get least expensive unexplored cell."""
-        if unexplored_cell.size == 0:
-            return None, unexplored_cell
+        if distances['front'] > 5.0 and distances['left_sector'] > 3.0: # and distances['left_sector'] > 2.
+            self.logger(f'Found wall @ {distances['left_sector']}')
+            twist.angular.z = 1.0
+            linear = 0.0
+        # if distances['left_sector'] > 3.0:
+        #     twist.angular.z = 0.25
 
-        target = None
-        robot_x, robot_y = 0, 0  # Replace with actual robot position
-        min_cost = float('inf')
-        removed_index = None
+        # if distances['left_sector'] < 2.5:
+        #     twist.angular.z = -0.25
 
-        for index, (cell_y, cell_x) in enumerate(unexplored_cell):
-            target_x = self.map_info.origin.position.x + (cell_x + 0.5) * self.map_info.resolution
-            target_y = self.map_info.origin.position.y + (cell_y + 0.5) * self.map_info.resolution
+        # Velocity limits
+        twist.linear.x = max(linear, -0.3)
+        # twist.angular.z = max(min(twist.angular.z, 0.5), -0.5)
 
-            distance = np.hypot(target_x - robot_x, target_y - robot_y)
-            if distance < min_cost:
-                min_cost = distance
-                target = {'x': target_x, 'y': target_y}
-                removed_index = index
-
-        if target is None:
-            return None, unexplored_cell
-
-        unexplored_cell = np.delete(unexplored_cell, removed_index, axis=0)
-        return target, unexplored_cell
-
-    def start_navigation(self, request, response):
-        """Start Nevigation."""
-        if self.costmap_data is None or self.map_info is None:
-            return None
-
-        unexplored_cell = self.get_unexplored_cells()
-        while unexplored_cell.size > 0:
-
-            # get the least expensive goal
-            target, unexplored_cell = self.least_expensive_unexplored(unexplored_cell)
-
-            if target is None:
-                self.get_logger().info('No valid unexplored target found.')
-                break
-
-            # move towards the target
-            self.get_logger().info(f'Navigating to target: {target}')
-            success = self.move_to_target(target)
-            self.logger.info('done with navigation')
-
-            if not success:
-                self.get_logger().warning('Navigation to target failed. Skipping this target.')
-
-            unexplored_cell = self.get_unexplored_cells()  # Refresh unexplored cells after moving
-
-        self.get_logger().info('Exploration complete. All cells have been explored.')
-
-        return response
-
-    def update_costmap(self, msg):
-        """Update global costmap."""
-        self.costmap_data = np.array(msg.data).reshape((msg.info.height, msg.info.width))
-        self.map_info = msg.info
-
-    def goal_response_callback(self):
-        """Inform user the goal pose was set."""
-        self.get_logger().info('Navigation goal sent successfully.')
+        # Publish velocity commands
+        self.cmd_publisher.publish(twist)
+        
+        # Log for debugging
+        self.get_logger().info(
+            # f'Left: {distances["left_min"]:.2f}m, '
+            # f'Front Left: {distances["front_left_min"]:.2f}m, '
+            # f'rear_sector: {distances["rear_sector"]:.2f}m, '
+            f'left_sector: {distances["left_sector"]:.2f}m, '
+            f'front: {distances["front"]:.2f}m, '
+            # f'right_sector: {distances["right_sector"]:.2f}m, '
+            # f'Linear: {twist.linear.x:.2f}, Angular: {twist.angular.z:.2f}'
+        )
 
 
 def main(args=None):
-    """Init and run the Aitomatic Explore Node."""
+    """Initialize and run the Wall Following Node."""
     rclpy.init(args=args)
-    node = AutomaticExplore()
+    node = WallFollowingRobot()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
 
 
-if __name__ == '___main__':
+if __name__ == '__main__':
     main()
