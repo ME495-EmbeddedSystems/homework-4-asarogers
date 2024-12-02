@@ -1,0 +1,2 @@
+[console_scripts]
+explore_node = nubot_nav.explore:main

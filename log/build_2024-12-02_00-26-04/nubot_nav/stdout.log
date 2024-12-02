@@ -1,0 +1,47 @@
+running egg_info
+creating build/nubot_nav/nubot_nav.egg-info
+writing build/nubot_nav/nubot_nav.egg-info/PKG-INFO
+writing dependency_links to build/nubot_nav/nubot_nav.egg-info/dependency_links.txt
+writing entry points to build/nubot_nav/nubot_nav.egg-info/entry_points.txt
+writing requirements to build/nubot_nav/nubot_nav.egg-info/requires.txt
+writing top-level names to build/nubot_nav/nubot_nav.egg-info/top_level.txt
+writing manifest file 'build/nubot_nav/nubot_nav.egg-info/SOURCES.txt'
+reading manifest file 'build/nubot_nav/nubot_nav.egg-info/SOURCES.txt'
+writing manifest file 'build/nubot_nav/nubot_nav.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav
+copying nubot_nav/__init__.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav
+copying nubot_nav/explore.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav
+running install
+running install_lib
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav
+copying /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav/__init__.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav
+copying /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav/explore.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav
+byte-compiling /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav/explore.py to explore.cpython-312.pyc
+running install_data
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index/resource_index
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index/resource_index/packages
+copying resource/nubot_nav -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index/resource_index/packages
+copying package.xml -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/launch
+copying launch/manual_explore.launch.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/launch
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/urdf
+copying urdf/nubot.urdf.xacro -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/urdf
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+copying config/nubot_urdf.rviz -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+copying config/ekf.yaml -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+copying config/nav2_params.yaml -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/worlds
+copying worlds/nubot_simple.sdf -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/worlds
+copying worlds/nubot_world.sdf -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/worlds
+copying nubot_nav/explore.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav
+running install_egg_info
+Copying build/nubot_nav/nubot_nav.egg-info to /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav-0.0.0-py3.12.egg-info
+running install_scripts
+Installing explore_node script to /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/nubot_nav
+writing list of installed files to '/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/install.log'

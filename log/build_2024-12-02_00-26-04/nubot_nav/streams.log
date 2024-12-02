@@ -1,0 +1,49 @@
+[0.459s] Invoking command in '/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav': PYTHONPATH=/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/nubot_nav build --build-base /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build install --record /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/install.log --single-version-externally-managed install_data
+[0.616s] running egg_info
+[0.616s] creating build/nubot_nav/nubot_nav.egg-info
+[0.628s] writing build/nubot_nav/nubot_nav.egg-info/PKG-INFO
+[0.628s] writing dependency_links to build/nubot_nav/nubot_nav.egg-info/dependency_links.txt
+[0.628s] writing entry points to build/nubot_nav/nubot_nav.egg-info/entry_points.txt
+[0.629s] writing requirements to build/nubot_nav/nubot_nav.egg-info/requires.txt
+[0.629s] writing top-level names to build/nubot_nav/nubot_nav.egg-info/top_level.txt
+[0.629s] writing manifest file 'build/nubot_nav/nubot_nav.egg-info/SOURCES.txt'
+[0.654s] reading manifest file 'build/nubot_nav/nubot_nav.egg-info/SOURCES.txt'
+[0.654s] writing manifest file 'build/nubot_nav/nubot_nav.egg-info/SOURCES.txt'
+[0.654s] running build
+[0.654s] running build_py
+[0.655s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build
+[0.655s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib
+[0.655s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav
+[0.655s] copying nubot_nav/__init__.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav
+[0.655s] copying nubot_nav/explore.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav
+[0.655s] running install
+[0.658s] running install_lib
+[0.671s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav
+[0.671s] copying /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav/__init__.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav
+[0.671s] copying /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build/lib/nubot_nav/explore.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav
+[0.671s] byte-compiling /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav/__init__.py to __init__.cpython-312.pyc
+[0.671s] byte-compiling /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav/explore.py to explore.cpython-312.pyc
+[0.672s] running install_data
+[0.672s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index
+[0.672s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index/resource_index
+[0.672s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index/resource_index/packages
+[0.672s] copying resource/nubot_nav -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/ament_index/resource_index/packages
+[0.672s] copying package.xml -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav
+[0.672s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/launch
+[0.672s] copying launch/manual_explore.launch.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/launch
+[0.672s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/urdf
+[0.672s] copying urdf/nubot.urdf.xacro -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/urdf
+[0.672s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+[0.672s] copying config/nubot_urdf.rviz -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+[0.672s] copying config/ekf.yaml -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+[0.673s] copying config/nav2_params.yaml -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/config
+[0.673s] creating /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/worlds
+[0.673s] copying worlds/nubot_simple.sdf -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/worlds
+[0.673s] copying worlds/nubot_world.sdf -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav/worlds
+[0.673s] copying nubot_nav/explore.py -> /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/share/nubot_nav
+[0.673s] running install_egg_info
+[0.686s] Copying build/nubot_nav/nubot_nav.egg-info to /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages/nubot_nav-0.0.0-py3.12.egg-info
+[0.686s] running install_scripts
+[0.769s] Installing explore_node script to /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/nubot_nav
+[0.769s] writing list of installed files to '/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/install.log'
+[0.784s] Invoked command in '/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav' returned '0': PYTHONPATH=/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/install/nubot_nav/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/nubot_nav build --build-base /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/build install --record /home/asaace00/repo/me495/hw4/src/homework4/nubot_nav/build/nubot_nav/install.log --single-version-externally-managed install_data
