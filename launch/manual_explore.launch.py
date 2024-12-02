@@ -121,12 +121,12 @@ def generate_launch_description():
                 ('/world/nubot_world/model/nubot/joint_state', '/joint_states')
             ]
         ),
-        Node(
-            package='nubot_nav',
-            executable='explore_node',
-            name='explore_node',
-            output='screen'
-        ),
+        # Node(
+        #     package='nubot_nav',
+        #     executable='explore_node',
+        #     name='explore_node',
+        #     output='screen'
+        # ),
         IncludeLaunchDescription(
             PathJoinSubstitution(
                 [
