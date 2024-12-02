@@ -39,7 +39,7 @@ def generate_launch_description():
     pkg_share = FindPackageShare(package='nubot_nav').find('nubot_nav')
     default_model_path = os.path.join(pkg_share, 'urdf/nubot.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share, 'config/nubot_urdf.rviz')
-    world_config = os.path.join(pkg_share, 'worlds/nubot_simple.sdf')
+    world_config = os.path.join(pkg_share, 'worlds/nubot_world.sdf')
     nav2_params_config = os.path.join(pkg_share, 'config/nav2_params.yaml')
 
     robot_desc = xacro.process_file(default_model_path).toxml()
@@ -88,6 +88,19 @@ def generate_launch_description():
         parameters=[os.path.join(pkg_share, 'config/ekf.yaml'),
                     {'use_sim_time': LaunchConfiguration('use_sim_time')}]
     )
+    planner_server_node = Node(
+        package='nav2_planner',
+        executable='planner_server',
+        name='planner_server',
+        output='screen',
+        parameters=[nav2_params_config],
+        remappings=[
+            ('/plan', '/global_plan'),
+            ('/tf', 'tf'),
+            ('/tf_static', 'tf_static')
+        ]
+    )
+
 
     # Launch description
     return launch.LaunchDescription([
@@ -97,6 +110,7 @@ def generate_launch_description():
                               description='Path to RViz config file'),
         DeclareLaunchArgument('use_sim_time', default_value='True',
                               description='Use sim time if true'),
+        # planner_server_node,
         gz_sim,
         robot_state_publisher,
         spawn_entity,
