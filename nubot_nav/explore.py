@@ -47,10 +47,34 @@ class AutomaticExplore(Node):
         """Get unexplored cells from the costmap."""
         if self.costmap_data is None:
             return np.array([])
-        unexplored_cell = np.argwhere(self.costmap_data == -1)
-        if unexplored_cell.size == 0:
-            self.logger.info('No more unexplored areas.')
-        return unexplored_cell
+
+        # Identify unexplored cells (-1 values)
+        unexplored_cells = np.argwhere(self.costmap_data == -1)
+
+        # Apply a safety buffer: Exclude cells near obstacles or boundaries
+        inflated_map = np.copy(self.costmap_data)
+        inflation_radius = 2  # Adjust based on costmap resolution (2 cells = 10 cm for 0.05 resolution)
+
+        # Inflate the obstacles by setting nearby cells to a high value
+        for cell_y, cell_x in np.argwhere(self.costmap_data >= 100):  # Obstacles are often >=100 in costmaps
+            for dy in range(-inflation_radius, inflation_radius + 1):
+                for dx in range(-inflation_radius, inflation_radius + 1):
+                    ny, nx = cell_y + dy, cell_x + dx
+                    if 0 <= ny < inflated_map.shape[0] and 0 <= nx < inflated_map.shape[1]:
+                        inflated_map[ny, nx] = 100
+
+        # Filter unexplored cells to exclude those within the inflated obstacle zone
+        safe_unexplored_cells = []
+        for cell_y, cell_x in unexplored_cells:
+            if inflated_map[cell_y, cell_x] < 100:
+                safe_unexplored_cells.append((cell_y, cell_x))
+
+        if len(safe_unexplored_cells) == 0:
+            self.logger.info('No safe unexplored areas.')
+            return np.array([])
+
+        return np.array(safe_unexplored_cells)
+
 
     def random_unexplored_target(self, unexplored_cells):
         """Select a random unexplored cell."""
