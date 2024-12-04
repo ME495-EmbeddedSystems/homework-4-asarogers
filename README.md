@@ -13,4 +13,8 @@ https://github.com/user-attachments/assets/860e939b-5dc3-4533-b6cb-afc01f35f14a
 
 
 wall following algorithm
-[Screencast from 2024-11-27 22-35-27.webm](https://github.com/user-attachments/assets/94847ca8-8905-4af8-a66b-271b8d016d36)
+
+
+
+https://github.com/user-attachments/assets/15b6deb7-da1f-4074-8e4f-f0c574ac790b
+
