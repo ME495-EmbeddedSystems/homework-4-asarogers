@@ -1,0 +1,1 @@
+Althought he robot accomplishes the task, the repository seems to have a full ROS 2 workspace committed to it (e.g., build and install directories).
